@@ -9,7 +9,7 @@ RUN tar -C /usr/local -xzf /tmp/go.tgz
 VOLUME /bawt
 # Wat
 ADD . /bawt/go/src/github.com/fujin/bawt
-WORKDIR /bawt
+WORKDIR /bawt/go/src/github.com/fujin/bawt
 
 # Populate /bawt/go/bawt
 ENV GOROOT /usr/local/go
