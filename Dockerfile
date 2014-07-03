@@ -18,6 +18,6 @@ ENV PATH /usr/local/go/bin:$PATH
 
 RUN apt-get update -qq
 RUN apt-get install git bzr mercurial -yqq
-RUN go get -v
 
+RUN go get -u -v
 ENTRYPOINT ["/bawt/go/bin/bawt"]
