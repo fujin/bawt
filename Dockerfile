@@ -17,7 +17,7 @@ ENV GOPATH /bawt
 ENV GOROOT /usr/local/go
 ENV PATH /usr/local/go/bin:$PATH
 
-RUN apt-get install git bzr -yqq
+RUN apt-get install git bzr mercurial -yqq
 RUN go get -u -v github.com/danryan/hal
 RUN go install -v
 
