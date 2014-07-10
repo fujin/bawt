@@ -22,7 +22,7 @@ var GetHandler = hal.Hear(`^(\w+)\?$`, func(res *hal.Response) error {
 
 // BUG(fujin): Add AppendHandler for 'is/are also' info-form.
 // SetHandler does a simple match/set into the Store
-var SetHandler = hal.Hear(`^(\w+)\s+(is|are)\s+(\w+)$`, func(res *hal.Response) error {
+var SetHandler = hal.Hear(`^(\w+)\s+(?:is|are)\s+(\w+)$`, func(res *hal.Response) error {
 	key := res.Match[1]
 	val := res.Match[2]
 	err := res.Robot.Store.Set(key, []byte(val))
