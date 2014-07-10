@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"github.com/danryan/hal"
 	"github.com/davecgh/go-spew/spew"
 )
@@ -17,7 +18,7 @@ var GetHandler = hal.Hear(`^(\w+)\?$`, func(res *hal.Response) error {
 		res.Send(err.Error())
 		return err
 	}
-	return res.Send(string(val))
+	return res.Send(fmt.Sprintf("%s -> %s", key, string(val)))
 })
 
 // BUG(fujin): Add AppendHandler for 'is/are also' info-form.
