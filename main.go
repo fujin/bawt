@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/danryan/hal"
+	_ "github.com/danryan/hal/adapter/irc"
 	"github.com/fujin/bawt/handlers"
 	"log"
 	"os"
