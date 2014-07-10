@@ -2,39 +2,39 @@ package main
 
 import (
 	"github.com/danryan/hal"
+	"github.com/fujin/bawt/handlers"
 	"log"
 	"os"
 )
 
-var pingHandler = hal.Hear(`ping`, func(res *hal.Response) error {
-	return res.Send("PONG")
-})
-
-var openDoorsHandler = hal.Respond(`open the pod bay doors`, func(res *hal.Response) error {
-	return res.Reply("I'm sorry, Dave. I can't do that.")
-})
-
-func main() {
-	os.Exit(Run())
+// Bawt is an infobot for #go-chef/#chef, etc
+type Bawt struct {
+	*hal.Robot
 }
 
-// Run launches the bot, returns standard exit code
-func Run() int {
-	robot, newErr := hal.NewRobot()
-	if newErr != nil {
-		log.Println(newErr)
-		return 1
+// NewBawt makes bawt or returns an error
+func NewBawt() (bawt Bawt, err error) {
+	bawt.Robot, err = hal.NewRobot()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return bawt, nil
+}
+
+func main() {
+	bawt, err := NewBawt()
+	if err != nil {
+		log.Fatal("unexpected error during bawt creation:", err)
 	}
 
-	robot.Handle(
-		pingHandler,
-		openDoorsHandler,
+	bawt.Handle(
+		handlers.PingHandler,
+		handlers.GetHandler,
+		handlers.SetHandler,
+		handlers.DeleteHandler,
+		handlers.UsersHandler,
 	)
+	bawt.Run()
 
-	runErr := robot.Run()
-	if runErr != nil {
-		log.Println(runErr)
-		return 1
-	}
-	return 0
+	os.Exit(0)
 }
