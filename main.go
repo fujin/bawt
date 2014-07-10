@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/danryan/hal"
 	_ "github.com/danryan/hal/adapter/irc"
+	_ "github.com/danryan/hal/store/redis"
 	"github.com/fujin/bawt/handlers"
 	"log"
 	"os"
