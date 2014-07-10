@@ -10,7 +10,7 @@ const okStr = "OK"
 // GetHandler pulls a key out of the store, when addressed like so:
 // foobar?
 // bawt> get: foobar=baz
-var GetHandler = hal.Hear(`^(\w+)\?$ `, func(res *hal.Response) error {
+var GetHandler = hal.Hear(`^(\w+)\?$`, func(res *hal.Response) error {
 	key := res.Match[1]
 	val, err := res.Robot.Store.Get(key)
 	if err != nil {
