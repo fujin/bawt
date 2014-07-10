@@ -11,7 +11,7 @@ const okStr = "OK"
 // foobar?
 // bawt> get: foobar=baz
 var GetHandler = hal.Hear(`^(\w+)\?$ `, func(res *hal.Response) error {
-	key := res.Match[0][1]
+	key := res.Match[1]
 	val, err := res.Robot.Store.Get(key)
 	if err != nil {
 		res.Send(err.Error())
@@ -23,8 +23,8 @@ var GetHandler = hal.Hear(`^(\w+)\?$ `, func(res *hal.Response) error {
 // BUG(fujin): Add AppendHandler for 'is/are also' info-form.
 // SetHandler does a simple match/set into the Store
 var SetHandler = hal.Hear(`^(\w+)\s+(is|are)\s+(\w+)$`, func(res *hal.Response) error {
-	key := res.Match[0][1]
-	val := res.Match[0][2]
+	key := res.Match[1]
+	val := res.Match[2]
 	err := res.Robot.Store.Set(key, []byte(val))
 	if err != nil {
 		res.Send(err.Error())
@@ -35,7 +35,7 @@ var SetHandler = hal.Hear(`^(\w+)\s+(is|are)\s+(\w+)$`, func(res *hal.Response) 
 
 // DeleteHandler nukes keys in the Store
 var DeleteHandler = hal.Hear(`^!forget (\w+)$`, func(res *hal.Response) error {
-	key := res.Match[0][1]
+	key := res.Match[1]
 
 	if err := res.Robot.Store.Delete(key); err != nil {
 		res.Send(err.Error())
@@ -55,7 +55,7 @@ var UsersHandler = hal.Hear(`^!show users$`, func(res *hal.Response) error {
 
 // UserHandler is the singular form of UsersHandler
 var UserHandler = hal.Hear(`^!show user (.+)$`, func(res *hal.Response) error {
-	id := res.Match[0][1]
+	id := res.Match[1]
 	user, _ := res.Robot.Users.Get(id)
 	line := spew.Sdump(user)
 	return res.Send(line)
