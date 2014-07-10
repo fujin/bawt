@@ -16,4 +16,5 @@ RUN apt-get update -qq
 RUN apt-get install git bzr mercurial -yqq
 
 RUN GOPATH=/bawt go get -v
+RUN chmod +x bawt.sh
 ENTRYPOINT ["/bawt/src/github.com/fujin/bawt/bawt.sh"]
