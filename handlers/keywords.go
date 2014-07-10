@@ -10,7 +10,7 @@ const okStr = "OK"
 // GetHandler pulls a key out of the store, when addressed like so:
 // foobar?
 // bawt> get: foobar=baz
-var GetHandler = hal.Hear(`^([:word]{1})\?$`, func(res *hal.Response) error {
+var GetHandler = hal.Hear(`^([:word:]{1})\?$`, func(res *hal.Response) error {
 	key := res.Match[0][1]
 	val, err := res.Robot.Store.Get(key)
 	if err != nil {
@@ -21,7 +21,7 @@ var GetHandler = hal.Hear(`^([:word]{1})\?$`, func(res *hal.Response) error {
 })
 
 // SetHandler does a simple match/set into the Store
-var SetHandler = hal.Hear(`^([:word]{1}) is ([:word]+)$`, func(res *hal.Response) error {
+var SetHandler = hal.Hear(`^([:word:]{1}) is ([:word]+)$`, func(res *hal.Response) error {
 	key := res.Match[0][1]
 	val := res.Match[0][2]
 	err := res.Robot.Store.Set(key, []byte(val))
@@ -33,7 +33,7 @@ var SetHandler = hal.Hear(`^([:word]{1}) is ([:word]+)$`, func(res *hal.Response
 })
 
 // DeleteHandler nukes keys in the Store
-var DeleteHandler = hal.Hear(`^forget ([:word]{1})$`, func(res *hal.Response) error {
+var DeleteHandler = hal.Hear(`^forget ([:word:]{1})$`, func(res *hal.Response) error {
 	key := res.Match[0][1]
 
 	if err := res.Robot.Store.Delete(key); err != nil {
